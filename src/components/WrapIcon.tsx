@@ -15,7 +15,7 @@ interface Props {
   iconType?: IconType;
   icon: IconName; 
   strokeWidth?: number;
-  size: number,
+  size?: number,
   style?: object
 }
 
@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(248, 250, 252, 0.5)',
         padding: 5,
         borderRadius: 10,
-        width: hp(4),
         alignItems: 'center',
         justifyContent: 'center'
     }

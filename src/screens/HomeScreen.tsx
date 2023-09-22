@@ -33,7 +33,6 @@ const HomeScreen = () => {
     <View style={styles.container}>
       <SafeAreaView>
         <ScrollView>
-          <StatusBar style="light" />
           <View style={styles.header}>
             <Bars3BottomRightIcon color={Color.white} size={hp(4)} />
             <MagnifyingGlassIcon
