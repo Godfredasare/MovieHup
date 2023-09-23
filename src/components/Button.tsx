@@ -10,7 +10,7 @@ import { PlayIcon } from "react-native-heroicons/solid";
 const Button = () => {
   return (
     <View style={styles.button}>
-      <PlayIcon color={Color.textSlate300} />
+      <PlayIcon color={Color.background} />
       <Text style={styles.premiumButtonText}>Get premium</Text>
     </View>
   );
@@ -20,7 +20,7 @@ export default Button;
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: Color.secondary,
+    backgroundColor: Color.white,
     alignItems: "center",
     justifyContent: "center",
     padding: 8,
@@ -32,6 +32,6 @@ const styles = StyleSheet.create({
   premiumButtonText: {
     fontSize: hp(2.2),
     fontWeight: "600",
-    color: Color.white,
+    color: Color.background,
   },
 });

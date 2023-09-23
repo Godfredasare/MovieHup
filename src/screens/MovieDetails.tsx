@@ -19,6 +19,8 @@ import star from "../../assets/images/star.png";
 import Genres from "../components/Genres";
 import Button from "../components/Button";
 import { ArrowDownTrayIcon, PlayIcon, ShareIcon } from "react-native-heroicons/outline";
+import Casts from "../components/Casts";
+import cast from "../data/cast";
 
 var { width, height } = Dimensions.get("window");
 
@@ -80,7 +82,7 @@ const MovieDetails = () => {
           end={{ x: 0.5, y: 0 }} // End at the top
         />
 
-        {/* bodu */}
+        {/* body */}
       </View>
       <View style={styles.body}>
         <Text style={styles.title}>Spider-Man: Across the Spider-Verse</Text>
@@ -90,8 +92,7 @@ const MovieDetails = () => {
             7.5 <Image source={star} style={{ width: 15, height: 15 }} />
           </Text>
 
-          <Text style={styles.star}>95 mins</Text>
-          <Text style={styles.star}>2023-07-26</Text>
+          <Text style={styles.star}>{'|' + '  ' + '95mins' + '  ' + '|' + '  ' +  '2023-07-26' }</Text>
         </View>
 
         {/* genres */}
@@ -116,7 +117,30 @@ const MovieDetails = () => {
             <ShareIcon strokeWidth={2} color={Color.textSlate300} />
           </View>
         </View>
+
+        {/* top casts */}
+
+
+        <View>
+          <Text style={styles.castText}>Top Cast</Text>
+          <ScrollView
+           horizontal
+           contentContainerStyle={{ gap: 10 }}
+           showsHorizontalScrollIndicator={false}
+          >
+            {
+              cast.map(casts =>
+                <View>
+                  <Casts cast={casts} />
+                </View>
+              )
+            }
+          </ScrollView>
+        </View>
       </View>
+        
+
+
 
     </ScrollView>
   );
@@ -173,4 +197,10 @@ const styles = StyleSheet.create({
     padding: 7,
     borderRadius: 10
   },
+  castText:{
+    color: Color.textSlate300,
+    fontSize: hp(3),
+    fontWeight: "500",
+    paddingBottom: 10
+  }
 });
