@@ -48,7 +48,7 @@ const HomeScreen = () => {
               <PopularMovies />
               <UpcomingMovies />
               <RecentMovies />
-              <TopRatedMovies />
+              <TopRatedMovies />xxxu
             </View>
           </View>
         </ScrollView>

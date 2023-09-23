@@ -121,6 +121,7 @@ const MovieDetails = () => {
             marginVertical: 17,
           }}
         >
+          
           <Button />
           <View style={styles.play}>
             <ArrowDownTrayIcon strokeWidth={2} color={Color.textSlate300} />
@@ -130,6 +131,7 @@ const MovieDetails = () => {
           </View>
         </View>
 
+           {/* description */}
         <Text style={styles.description}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora
           obcaecati aliquid in, natus exercitationem aliquam nam deleniti atque
@@ -155,6 +157,7 @@ const MovieDetails = () => {
         </View>
 
         {/* similar movies */}
+
       </View>
     </ScrollView>
   );
