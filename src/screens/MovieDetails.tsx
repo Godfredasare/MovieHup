@@ -18,7 +18,11 @@ import avarta from "../../assets/images/avatar.jpg";
 import star from "../../assets/images/star.png";
 import Genres from "../components/Genres";
 import Button from "../components/Button";
-import { ArrowDownTrayIcon, PlayIcon, ShareIcon } from "react-native-heroicons/outline";
+import {
+  ArrowDownTrayIcon,
+  PlayIcon,
+  ShareIcon,
+} from "react-native-heroicons/outline";
 import Casts from "../components/Casts";
 import cast from "../data/cast";
 
@@ -78,8 +82,8 @@ const MovieDetails = () => {
             position: "absolute",
             bottom: 0,
           }}
-          start={{ x: 0.5, y: 0.9 }} // Start from the bottom
-          end={{ x: 0.5, y: 0 }} // End at the top
+          start={{ x: 0.5, y: 0.9 }} 
+          end={{ x: 0.5, y: 0 }} 
         />
 
         {/* body */}
@@ -92,13 +96,15 @@ const MovieDetails = () => {
             7.5 <Image source={star} style={{ width: 15, height: 15 }} />
           </Text>
 
-          <Text style={styles.star}>{'|' + '  ' + '95mins' + '  ' + '|' + '  ' +  '2023-07-26' }</Text>
+          <Text style={styles.star}>
+            {"|" + "  " + "95mins" + "  " + "|" + "  " + "2023-07-26"}
+          </Text>
         </View>
 
         {/* genres */}
         <ScrollView
           horizontal
-          contentContainerStyle={{ gap: 10 }}
+          contentContainerStyle={{ gap: 10, paddingVertical: 10 }}
           showsHorizontalScrollIndicator={false}
         >
           {genres.map((genres) => (
@@ -108,7 +114,13 @@ const MovieDetails = () => {
           ))}
         </ScrollView>
 
-        <View style={{ flexDirection: "row", justifyContent: "space-between", marginVertical: 10 }}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginVertical: 17,
+          }}
+        >
           <Button />
           <View style={styles.play}>
             <ArrowDownTrayIcon strokeWidth={2} color={Color.textSlate300} />
@@ -118,30 +130,32 @@ const MovieDetails = () => {
           </View>
         </View>
 
-        {/* top casts */}
+        <Text style={styles.description}>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora
+          obcaecati aliquid in, natus exercitationem aliquam nam deleniti atque
+          iste dolores libero aut et ex quae quidem. Harum animi aspernatur
+          mollitia!
+        </Text>
 
+        {/* top casts */}
 
         <View>
           <Text style={styles.castText}>Top Cast</Text>
           <ScrollView
-           horizontal
-           contentContainerStyle={{ gap: 10 }}
-           showsHorizontalScrollIndicator={false}
+            horizontal
+            contentContainerStyle={{ gap: 10 }}
+            showsHorizontalScrollIndicator={false}
           >
-            {
-              cast.map(casts =>
-                <View>
-                  <Casts cast={casts} />
-                </View>
-              )
-            }
+            {cast.map((casts) => (
+              <View key={casts.id}>
+                <Casts cast={casts} />
+              </View>
+            ))}
           </ScrollView>
         </View>
+
+        {/* similar movies */}
       </View>
-        
-
-
-
     </ScrollView>
   );
 };
@@ -185,7 +199,7 @@ const styles = StyleSheet.create({
     color: Color.textSlate300,
     fontSize: hp(3.5),
     fontWeight: "700",
-    width: '80%'
+    width: "80%",
   },
   star: {
     color: Color.grey,
@@ -195,12 +209,17 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: Color.textSlate300,
     padding: 7,
-    borderRadius: 10
+    borderRadius: 10,
   },
-  castText:{
+  castText: {
     color: Color.textSlate300,
-    fontSize: hp(3),
+    fontSize: hp(2.5),
     fontWeight: "500",
-    paddingBottom: 10
+    paddingBottom: 15,
+  },
+  description:{
+    color: Color.grey,
+    fontSize: hp(1.9),
+    fontWeight: "500",
   }
 });

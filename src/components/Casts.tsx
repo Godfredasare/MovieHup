@@ -4,7 +4,6 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import avatar from "../../assets/images/avatar.jpg";
 import Color from "../config/Color";
 
 interface Cast {
@@ -26,8 +25,12 @@ const Casts = ({ cast }: Props) => {
         source={{ uri: `https://image.tmdb.org/t/p/w500${cast.profile_path}` }}
       />
       <View style={{ justifyContent: "center", paddingLeft: 10 }}>
-        <Text style={styles.cast1}>{cast.original_name}</Text>
-        <Text style={styles.cast2}>{cast.character}</Text>
+        <Text numberOfLines={1} style={styles.cast1}>
+          {cast.original_name}
+        </Text>
+        <Text numberOfLines={1} style={styles.cast2}>
+          {cast.character}
+        </Text>
       </View>
     </View>
   );
@@ -42,7 +45,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#263448",
     borderRadius: 15,
     flexDirection: "row",
-    overflow: 'hidden'
+    overflow: "hidden",
   },
   image: {
     width: hp(10),
@@ -52,10 +55,13 @@ const styles = StyleSheet.create({
     color: Color.textSlate300,
     fontSize: hp(2),
     fontWeight: "600",
+    flexShrink: 1,
+    width: "90%",
   },
   cast2: {
     color: Color.grey,
     fontSize: hp(2),
     fontWeight: "600",
+    width: "80%",
   },
 });
