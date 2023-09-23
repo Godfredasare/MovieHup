@@ -20,13 +20,12 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import avarta from "../../assets/images/avatar.jpg";
-import { LinearGradient } from "expo-linear-gradient";
-import WrapIcon from "../components/WrapIcon";
 import TrendingMovies from "../components/TrendingMovies";
 import Primium from "../components/Primium";
 import PopularMovies from "../components/PopularMovies";
 import UpcomingMovies from "../components/UpcomingMovies";
 import TopRatedMovies from "../components/TopRatedMovies";
+import RecentMovies from "../components/RecentMovies";
 
 const HomeScreen = () => {
   return (
@@ -45,9 +44,10 @@ const HomeScreen = () => {
           <View style={{ gap: 40 }}>
             <Primium premiumImage={avarta} />
             <TrendingMovies />
-            <View style={{ gap: 23 }}>
+            <View style={{ gap: 30 }}>
               <PopularMovies />
               <UpcomingMovies />
+              <RecentMovies />
               <TopRatedMovies />
             </View>
           </View>

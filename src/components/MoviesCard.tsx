@@ -32,8 +32,8 @@ export default MoviesCard;
 
 const styles = StyleSheet.create({
   image: {
-    width: hp(15),
-    height: hp(20),
-    borderRadius : 16 ,
+    width: hp(13),
+    height: hp(18),
+    borderRadius: 8,
   },
 });

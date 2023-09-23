@@ -16,8 +16,26 @@ import { LinearGradient } from "expo-linear-gradient";
 import WrapIcon from "../components/WrapIcon";
 import avarta from "../../assets/images/avatar.jpg";
 import star from "../../assets/images/star.png";
+import Genres from "../components/Genres";
+import Button from "../components/Button";
+import { ArrowDownTrayIcon, PlayIcon, ShareIcon } from "react-native-heroicons/outline";
 
 var { width, height } = Dimensions.get("window");
+
+const genres = [
+  {
+    id: 27,
+    name: "Horror",
+  },
+  {
+    id: 53,
+    name: "Thriller",
+  },
+  {
+    id: 54,
+    name: "Adventure",
+  },
+];
 
 const MovieDetails = () => {
   return (
@@ -76,8 +94,30 @@ const MovieDetails = () => {
           <Text style={styles.star}>2023-07-26</Text>
         </View>
 
-        
+        {/* genres */}
+        <ScrollView
+          horizontal
+          contentContainerStyle={{ gap: 10 }}
+          showsHorizontalScrollIndicator={false}
+        >
+          {genres.map((genres) => (
+            <View key={genres.id}>
+              <Genres genres={genres.name} />
+            </View>
+          ))}
+        </ScrollView>
+
+        <View style={{ flexDirection: "row", justifyContent: "space-between", marginVertical: 10 }}>
+          <Button />
+          <View style={styles.play}>
+            <ArrowDownTrayIcon strokeWidth={2} color={Color.textSlate300} />
+          </View>
+          <View style={styles.play}>
+            <ShareIcon strokeWidth={2} color={Color.textSlate300} />
+          </View>
+        </View>
       </View>
+
     </ScrollView>
   );
 };
@@ -115,15 +155,22 @@ const styles = StyleSheet.create({
     position: "relative",
     top: hp(-20),
     paddingHorizontal: 15,
-    gap: 10
+    gap: 15,
   },
   title: {
     color: Color.textSlate300,
     fontSize: hp(3.5),
     fontWeight: "700",
+    width: '80%'
   },
   star: {
     color: Color.grey,
     fontWeight: "500",
+  },
+  play: {
+    borderWidth: 1,
+    borderColor: Color.textSlate300,
+    padding: 7,
+    borderRadius: 10
   },
 });

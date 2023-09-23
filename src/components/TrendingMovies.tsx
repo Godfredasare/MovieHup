@@ -26,10 +26,10 @@ const TrendingMovies = () => {
           <TrendingSnapCard item={item} />
         )}
         firstItem={1}
-        inactiveSlideScale={0.86}
+        inactiveSlideScale={0.80}
         inactiveSlideOpacity={0.45}
         sliderWidth={width}
-        itemWidth={width * 0.63}
+        itemWidth={width * 0.67}
         slideStyle={{ display: "flex", alignItems: "center" }}
         vertical={false}
       />
