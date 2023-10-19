@@ -33,9 +33,9 @@ export default TrendingSnapCard;
 
 const styles = StyleSheet.create({
   image: {
-    width: hp(31),
-    height: hp(41),
+    width: hp(32),
+    height: hp(42),
     alignSelf: "center",
-    borderRadius: 15,
+    borderRadius: 20,
   },
 });
