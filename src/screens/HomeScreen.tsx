@@ -22,10 +22,8 @@ import {
 import avarta from "../../assets/images/avatar.jpg";
 import TrendingMovies from "../components/TrendingMovies";
 import Primium from "../components/Primium";
-import PopularMovies from "../components/PopularMovies";
 import UpcomingMovies from "../components/UpcomingMovies";
-import TopRatedMovies from "../components/TopRatedMovies";
-import RecentMovies from "../components/RecentMovies";
+import MoviesList from "../components/MovieList";
 
 const HomeScreen = () => {
   return (
@@ -45,10 +43,12 @@ const HomeScreen = () => {
             <Primium premiumImage={avarta} />
             <TrendingMovies />
             <View style={{ gap: 30 }}>
-              <PopularMovies />
+              <MoviesList title="Popular" />
               <UpcomingMovies />
-              <RecentMovies />
-              <TopRatedMovies />xxxu
+              <MoviesList title="Recent Movies" />
+              <MoviesList title="Top Rated Movies" />
+              {/* <RecentMovies />
+              <TopRatedMovies /> */}
             </View>
           </View>
         </ScrollView>

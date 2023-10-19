@@ -3,7 +3,7 @@ import React from "react";
 import Color from "../config/Color";
 import { heightPercentageToDP } from "react-native-responsive-screen";
 import movies from "../data/movies";
-import RecentCard from "./RecentCard";
+import MoviesCard from "./MoviesCard";
 
 export interface Popular {
   id: number;
@@ -12,17 +12,21 @@ export interface Popular {
   poster_path: string;
 }
 
-const RecentMovies = () => {
+interface Props {
+  title: string
+}
+
+const MoviesList = ({title}: Props) => {
   return (
     <View style={{ paddingHorizontal: 15 }}>
       <View style={styles.wrapText}>
-        <Text style={styles.title}>Recently Added Movies</Text>
+        <Text style={styles.title}>{title}</Text>
         <Text style={styles.view}>view all</Text>
       </View>
-      <ScrollView horizontal contentContainerStyle={{ gap: 10 }}>
+      <ScrollView horizontal contentContainerStyle={{ gap: 15 }}>
         {movies.map((movie) => (
           <View key={movie.id}>
-            <RecentCard item={movie} />
+            <MoviesCard item={movie} />
           </View>
         ))}
       </ScrollView>
@@ -30,7 +34,7 @@ const RecentMovies = () => {
   );
 };
 
-export default RecentMovies;
+export default MoviesList;
 
 const styles = StyleSheet.create({
   wrapText: {
@@ -41,11 +45,11 @@ const styles = StyleSheet.create({
   title: {
     color: Color.textSlate300,
     fontSize: heightPercentageToDP(2.5),
-    fontWeight: "800",
+    fontWeight: "600",
     paddingBottom: 15,
   },
   view: {
-    color: "rgb(100 116 139)",
+    color: "rgb(100 116 139)",          
     fontSize: heightPercentageToDP(1.7),
     fontWeight: "500",
     paddingBottom: 15,
