@@ -24,6 +24,7 @@ import TrendingMovies from "../components/TrendingMovies";
 import Primium from "../components/Primium";
 import UpcomingMovies from "../components/UpcomingMovies";
 import MoviesList from "../components/MovieList";
+import movies from "../data/movies";
 
 const HomeScreen = () => {
   return (
@@ -43,10 +44,10 @@ const HomeScreen = () => {
             <Primium premiumImage={avarta} />
             <TrendingMovies />
             <View style={{ gap: 30 }}>
-              <MoviesList title="Popular" />
+              <MoviesList moviesData={movies} title="Popular"  />
               <UpcomingMovies />
-              <MoviesList title="Recent Movies" />
-              <MoviesList title="Top Rated Movies" />
+              <MoviesList moviesData={movies} title="Recent Movies" />
+              <MoviesList moviesData={movies} title="Top Rated Movies" />
               {/* <RecentMovies />
               <TopRatedMovies /> */}
             </View>

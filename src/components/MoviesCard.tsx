@@ -5,7 +5,7 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 
-interface Popular {
+export interface MovieListInterface {
   id: number;
   title?: string;
   overview?: string;
@@ -13,7 +13,7 @@ interface Popular {
 }
 
 interface Props {
-  item: Popular;
+  item: MovieListInterface;
   style?: object
 }
 const MoviesCard = ({ item, style }: Props) => {

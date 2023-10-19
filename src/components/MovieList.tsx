@@ -2,21 +2,17 @@ import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import Color from "../config/Color";
 import { heightPercentageToDP } from "react-native-responsive-screen";
-import movies from "../data/movies";
-import MoviesCard from "./MoviesCard";
+// import movies from "../data/movies";
+import MoviesCard, { MovieListInterface } from "./MoviesCard";
 
-export interface Popular {
-  id: number;
-  title: string;
-  overview?: string;
-  poster_path: string;
-}
+
 
 interface Props {
-  title: string
+  title: string,
+  moviesData: MovieListInterface[]
 }
 
-const MoviesList = ({title}: Props) => {
+const MoviesList = ({title, moviesData}: Props) => {
   return (
     <View style={{ paddingHorizontal: 15 }}>
       <View style={styles.wrapText}>
@@ -24,7 +20,7 @@ const MoviesList = ({title}: Props) => {
         <Text style={styles.view}>view all</Text>
       </View>
       <ScrollView horizontal contentContainerStyle={{ gap: 15 }}>
-        {movies.map((movie) => (
+        {moviesData.map((movie) => (
           <View key={movie.id}>
             <MoviesCard item={movie} />
           </View>
