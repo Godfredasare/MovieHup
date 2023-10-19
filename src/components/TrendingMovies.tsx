@@ -7,12 +7,26 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-import movies from "../data/movies";
 import Color from "../config/Color";
 
 var { width, height } = Dimensions.get("window");
 
-const TrendingMovies = () => {
+export interface Trending {
+  id: number;
+  poster_path?: string;
+  title?: string;
+}
+
+export interface fetchTrendInterface {
+  page: number,
+  results: Trending[]
+}
+
+interface Props {
+  movies: Trending[]
+}
+
+const TrendingMovies = ({movies} : Props) => {
   return (
     <View>
       <View style={styles.wrapText}>
@@ -27,7 +41,7 @@ const TrendingMovies = () => {
           <TrendingSnapCard item={item} />
         )}
         firstItem={1}
-        inactiveSlideScale={0.97}
+        inactiveSlideScale={0.85}
         inactiveSlideOpacity={0.62}
         sliderWidth={width}
         itemWidth={width * 0.67}

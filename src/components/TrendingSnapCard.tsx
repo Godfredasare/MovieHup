@@ -5,13 +5,9 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import avarta from "../../assets/images/avatar.jpg";
+import { Trending } from "./TrendingMovies";
 
-export interface Trending {
-  id: number;
-  poster_path?: string;
-  title?: string;
-  overview?: string;
-}
+
 
 interface Props {
   item: Trending;
@@ -33,8 +29,8 @@ export default TrendingSnapCard;
 
 const styles = StyleSheet.create({
   image: {
-    width: hp(32),
-    height: hp(42),
+    width: hp(30),
+    height: hp(40),
     alignSelf: "center",
     borderRadius: 20,
   },

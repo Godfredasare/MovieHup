@@ -9,8 +9,8 @@ export default function App() {
     <View style={styles.container}>
       <StatusBar style='light' />
       {/* <MovieDetails /> */}
-       {/* <HomeScreen /> */}
-       <CastDetails />
+       <HomeScreen />
+       {/* <CastDetails /> */}
     </View>
   );
 }

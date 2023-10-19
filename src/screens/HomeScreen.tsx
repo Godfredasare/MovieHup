@@ -3,11 +3,10 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
-  Dimensions,
+
   ScrollView,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Color from "../config/Color";
 import { StatusBar } from "expo-status-bar";
 import { Platform } from "react-native";
@@ -20,13 +19,33 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import avarta from "../../assets/images/avatar.jpg";
-import TrendingMovies from "../components/TrendingMovies";
+import TrendingMovies, {
+  Trending,
+} from "../components/TrendingMovies";
 import Primium from "../components/Primium";
 import UpcomingMovies from "../components/UpcomingMovies";
 import MoviesList from "../components/MovieList";
 import movies from "../data/movies";
+import { fetchTrendingMovies } from "../service/fetchApi";
 
 const HomeScreen = () => {
+  const [trending, setTrending] = useState<Trending[]>([]);
+
+  const getTrendingMovies = async () => {
+    try {
+      const res = await fetchTrendingMovies();
+      setTrending(res.data.results);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  
+
+  useEffect(() => {
+    getTrendingMovies();
+  }, []);
+
   return (
     <View style={styles.container}>
       <SafeAreaView>
@@ -42,9 +61,9 @@ const HomeScreen = () => {
 
           <View style={{ gap: 40 }}>
             <Primium premiumImage={avarta} />
-            <TrendingMovies />
+            <TrendingMovies movies={trending} />
             <View style={{ gap: 30 }}>
-              <MoviesList moviesData={movies} title="Popular"  />
+              <MoviesList moviesData={movies} title="Popular" />
               <UpcomingMovies />
               <MoviesList moviesData={movies} title="Recent Movies" />
               <MoviesList moviesData={movies} title="Top Rated Movies" />
