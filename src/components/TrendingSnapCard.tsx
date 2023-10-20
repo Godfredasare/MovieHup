@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View, Pressable, GestureResponderEvent } from "react-native";
 import React from "react";
 import {
   widthPercentageToDP as wp,
@@ -7,20 +7,23 @@ import {
 import avarta from "../../assets/images/avatar.jpg";
 import { Trending } from "./TrendingMovies";
 
-
-
 interface Props {
   item: Trending;
+  onPress: () => void
 }
 
-const TrendingSnapCard = ({ item }: Props) => {
+const TrendingSnapCard = ({ item, onPress }: Props) => {
   return (
     <View>
-      <Image
-        resizeMode="contain"
-        source={{ uri: `https://image.tmdb.org/t/p/w500/${item.poster_path}` }}
-        style={styles.image}
-      />
+      <Pressable onPress={onPress}>
+        <Image
+          resizeMode="contain"
+          source={{
+            uri: `https://image.tmdb.org/t/p/w500/${item.poster_path}`,
+          }}
+          style={styles.image}
+        />
+      </Pressable>
     </View>
   );
 };

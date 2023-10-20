@@ -3,6 +3,7 @@ import React from "react";
 import Color from "../config/Color";
 import { heightPercentageToDP } from "react-native-responsive-screen";
 import MoviesCard from "./MoviesCard";
+import { useNavigation } from "@react-navigation/native";
 
 export interface MovieListInterface {
   id: number;
@@ -16,10 +17,13 @@ export interface fetchMovieListInterface {
 }
 interface Props {
   title: string;
-  moviesData: MovieListInterface[];
+  moviesData: MovieListInterface[],
+  handleNavigation: (id: number) => void
 }
 
-const MoviesList = ({ title, moviesData }: Props) => {
+const MoviesList = ({ title, moviesData, handleNavigation }: Props) => {
+const navigation =  useNavigation()
+
   return (
     <View style={{ paddingHorizontal: 15 }}>
       <View style={styles.wrapText}>
@@ -29,7 +33,7 @@ const MoviesList = ({ title, moviesData }: Props) => {
       <ScrollView horizontal contentContainerStyle={{ gap: 15 }}>
         {moviesData.map((movie) => (
           <View key={movie.id}>
-            <MoviesCard item={movie} />
+            <MoviesCard item={movie} onPress={() => handleNavigation(movie.id)} />
           </View>
         ))}
       </ScrollView>

@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View, Pressable } from "react-native";
 import React from "react";
 import {
   widthPercentageToDP as wp,
@@ -6,20 +6,23 @@ import {
 } from "react-native-responsive-screen";
 import { MovieListInterface } from "./MovieList";
 
-
-
 interface Props {
   item: MovieListInterface;
-  style?: object
+  style?: object;
+  onPress: () => void
 }
-const MoviesCard = ({ item, style }: Props) => {
+const MoviesCard = ({ item, style, onPress }: Props) => {
   return (
     <View>
-      <Image
-      resizeMode="contain"
-        style={[styles.image, style]}
-        source={{ uri: `https://image.tmdb.org/t/p/w500/${item.poster_path}` }}
-      />
+      <Pressable onPress={onPress}>
+        <Image
+          resizeMode="contain"
+          style={[styles.image, style]}
+          source={{
+            uri: `https://image.tmdb.org/t/p/w500/${item.poster_path}`,
+          }}
+        />
+      </Pressable>
     </View>
   );
 };

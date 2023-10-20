@@ -23,8 +23,12 @@ import {
   fetchPopularMovies,
   fetchTopRatedMovies,
 } from "../service/fetchApi";
+import { useNavigation } from "@react-navigation/native";
+import { ScreenNavigationProp } from "../navigation/appNavigation";
 
 const HomeScreen = () => {
+  const navigation = useNavigation<ScreenNavigationProp>();
+
   const [trending, setTrending] = useState<Trending[]>([]);
   const [upcoming, setUpcoming] = useState<Upcomming[]>([]);
   const [popular, setPopular] = useState<MovieListInterface[]>([]);
@@ -96,12 +100,35 @@ const HomeScreen = () => {
 
           <View style={{ gap: 40 }}>
             <Primium premiumImage={avarta} />
-            <TrendingMovies movies={trending} />
+            <TrendingMovies
+              movies={trending}
+              handleNavigation={(item) =>
+                navigation.navigate("Details", item.id)
+              }
+            />
             <View style={{ gap: 30 }}>
-              <MoviesList moviesData={popular} title="Popular" />
+              <MoviesList
+                moviesData={popular}
+                title="Popular"
+                handleNavigation={(id: number) =>
+                  navigation.navigate("Details", { id })
+                }
+              />
               <UpcomingMovies movies={upcoming} />
-              <MoviesList moviesData={nowPlaying} title="Now Playing Movies" />
-              <MoviesList moviesData={rated} title="Top Rated Movies" />
+              <MoviesList
+                moviesData={nowPlaying}
+                title="Now Playing Movies"
+                handleNavigation={(id: number) =>
+                  navigation.navigate("Details", { id })
+                }
+              />
+              <MoviesList
+                moviesData={rated}
+                title="Top Rated Movies"
+                handleNavigation={(id: number) =>
+                  navigation.navigate("Details", { id })
+                }
+              />
             </View>
           </View>
         </ScrollView>

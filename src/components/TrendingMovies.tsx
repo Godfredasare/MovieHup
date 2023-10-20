@@ -8,6 +8,7 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import Color from "../config/Color";
+import { useNavigation } from "@react-navigation/native";
 
 var { width, height } = Dimensions.get("window");
 
@@ -23,10 +24,17 @@ export interface fetchTrendInterface {
 }
 
 interface Props {
-  movies: Trending[]
+  movies: Trending[],
+  handleNavigation: (item: any) => void
 }
 
-const TrendingMovies = ({movies} : Props) => {
+
+
+const TrendingMovies = ({movies,handleNavigation} : Props) => {
+  const navigation = useNavigation()
+
+ 
+
   return (
     <View>
       <View style={styles.wrapText}>
@@ -38,7 +46,7 @@ const TrendingMovies = ({movies} : Props) => {
         data={movies}
         keyExtractor={({ id }: { id: any }) => id}
         renderItem={({ item }: { item: any }) => (
-          <TrendingSnapCard item={item} />
+          <TrendingSnapCard item={item}  onPress={() => handleNavigation(item)} />
         )}
         firstItem={1}
         inactiveSlideScale={0.85}
