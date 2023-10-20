@@ -1,21 +1,29 @@
 import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import Color from "../config/Color";
-import movies from "../data/movies";
+// import movies from "../data/movies";
 import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
   } from "react-native-responsive-screen";
 import MoviesCard from "./MoviesCard";
 
-export interface Popular {
+export interface Upcomming {
   id: number;
   title: string;
-  overview?: string;
   poster_path: string;
 }
 
-const UpcomingMovies = () => {
+export interface fetchUpcommingInterface {
+  page: number,
+  results: Upcomming[]
+}
+
+interface Props {
+  movies: Upcomming[]
+}
+
+const UpcomingMovies = ({movies}: Props) => {
   return (
     <View style={{ paddingHorizontal: 15 }}>
       <View style={styles.wrapText}>

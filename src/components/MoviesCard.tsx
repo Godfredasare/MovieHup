@@ -4,13 +4,9 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { MovieListInterface } from "./MovieList";
 
-export interface MovieListInterface {
-  id: number;
-  title?: string;
-  overview?: string;
-  poster_path: string;
-}
+
 
 interface Props {
   item: MovieListInterface;

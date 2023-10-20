@@ -1,18 +1,25 @@
-import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import Color from "../config/Color";
 import { heightPercentageToDP } from "react-native-responsive-screen";
-// import movies from "../data/movies";
-import MoviesCard, { MovieListInterface } from "./MoviesCard";
+import MoviesCard from "./MoviesCard";
 
-
-
-interface Props {
-  title: string,
-  moviesData: MovieListInterface[]
+export interface MovieListInterface {
+  id: number;
+  title?: string;
+  poster_path: string;
 }
 
-const MoviesList = ({title, moviesData}: Props) => {
+export interface fetchMovieListInterface {
+  page: number;
+  results: MovieListInterface[];
+}
+interface Props {
+  title: string;
+  moviesData: MovieListInterface[];
+}
+
+const MoviesList = ({ title, moviesData }: Props) => {
   return (
     <View style={{ paddingHorizontal: 15 }}>
       <View style={styles.wrapText}>
@@ -45,7 +52,7 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
   },
   view: {
-    color: "rgb(100 116 139)",          
+    color: "rgb(100 116 139)",
     fontSize: heightPercentageToDP(1.7),
     fontWeight: "500",
     paddingBottom: 15,

@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import TrendingSnapCard from "./TrendingSnapCard";
 import Carousel from "react-native-snap-carousel";
 import { Dimensions } from "react-native"; // Import Dimensions

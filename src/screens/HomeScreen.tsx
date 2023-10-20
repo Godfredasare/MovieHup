@@ -1,14 +1,6 @@
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-
-  ScrollView,
-} from "react-native";
+import { SafeAreaView, StyleSheet, View, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
 import Color from "../config/Color";
-import { StatusBar } from "expo-status-bar";
 import { Platform } from "react-native";
 import {
   Bars3BottomRightIcon,
@@ -19,17 +11,25 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import avarta from "../../assets/images/avatar.jpg";
-import TrendingMovies, {
-  Trending,
-} from "../components/TrendingMovies";
+import TrendingMovies, { Trending } from "../components/TrendingMovies";
 import Primium from "../components/Primium";
-import UpcomingMovies from "../components/UpcomingMovies";
-import MoviesList from "../components/MovieList";
+import UpcomingMovies, { Upcomming } from "../components/UpcomingMovies";
+import MoviesList, { MovieListInterface } from "../components/MovieList";
 import movies from "../data/movies";
-import { fetchTrendingMovies } from "../service/fetchApi";
+import {
+  fetchTrendingMovies,
+  fetchUpcomingMovies,
+  fetchNowPlayingMovies,
+  fetchPopularMovies,
+  fetchTopRatedMovies,
+} from "../service/fetchApi";
 
 const HomeScreen = () => {
   const [trending, setTrending] = useState<Trending[]>([]);
+  const [upcoming, setUpcoming] = useState<Upcomming[]>([]);
+  const [popular, setPopular] = useState<MovieListInterface[]>([]);
+  const [nowPlaying, setNowPlaying] = useState<MovieListInterface[]>([]);
+  const [rated, setRated] = useState<MovieListInterface[]>([]);
 
   const getTrendingMovies = async () => {
     try {
@@ -40,10 +40,45 @@ const HomeScreen = () => {
     }
   };
 
-  
+  const getUpcomingMovies = async () => {
+    try {
+      const res = await fetchUpcomingMovies();
+      setUpcoming(res.data.results);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+  const getPopularMovies = async () => {
+    try {
+      const res = await fetchPopularMovies();
+      setPopular(res.data.results);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+  const getNowPlayingMovies = async () => {
+    try {
+      const res = await fetchNowPlayingMovies();
+      setNowPlaying(res.data.results);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+  const getTopRatedMovies = async () => {
+    try {
+      const res = await fetchTopRatedMovies();
+      setRated(res.data.results);
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
 
   useEffect(() => {
     getTrendingMovies();
+    getUpcomingMovies();
+    getPopularMovies();
+    getNowPlayingMovies();
+    getTopRatedMovies();
   }, []);
 
   return (
@@ -63,12 +98,10 @@ const HomeScreen = () => {
             <Primium premiumImage={avarta} />
             <TrendingMovies movies={trending} />
             <View style={{ gap: 30 }}>
-              <MoviesList moviesData={movies} title="Popular" />
-              <UpcomingMovies />
-              <MoviesList moviesData={movies} title="Recent Movies" />
-              <MoviesList moviesData={movies} title="Top Rated Movies" />
-              {/* <RecentMovies />
-              <TopRatedMovies /> */}
+              <MoviesList moviesData={popular} title="Popular" />
+              <UpcomingMovies movies={upcoming} />
+              <MoviesList moviesData={nowPlaying} title="Now Playing Movies" />
+              <MoviesList moviesData={rated} title="Top Rated Movies" />
             </View>
           </View>
         </ScrollView>
