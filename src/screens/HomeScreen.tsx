@@ -103,7 +103,7 @@ const HomeScreen = () => {
             <TrendingMovies
               movies={trending}
               handleNavigation={(item) =>
-                navigation.navigate("Details", item.id)
+                navigation.navigate("Details", {id: item.id})
               }
             />
             <View style={{ gap: 30 }}>

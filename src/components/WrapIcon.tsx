@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import {
   widthPercentageToDP as wp,
@@ -13,31 +13,40 @@ type IconName = keyof typeof IconOutline | keyof typeof IconSolid;
 
 interface Props {
   iconType?: IconType;
-  icon: IconName; 
+  icon: IconName;
   strokeWidth?: number;
-  size?: number,
-  style?: object
+  size?: number;
+  style?: object;
+  onPress?(): void;
 }
 
-const WrapIcon = ({ iconType, icon, strokeWidth,  size,style }: Props) => {
+const WrapIcon = ({
+  iconType,
+  icon,
+  strokeWidth,
+  size,
+  style,
+  onPress,
+}: Props) => {
   const IconSet = iconType === "solid" ? IconSolid : IconOutline;
-  const SelectedIcon = IconSet[icon as keyof typeof IconOutline | keyof typeof IconSolid];
+  const SelectedIcon =
+    IconSet[icon as keyof typeof IconOutline | keyof typeof IconSolid];
 
   return (
-    <View style={[styles.container, style]}>
+    <TouchableOpacity onPress={onPress} style={[styles.container, style]}>
       <SelectedIcon strokeWidth={strokeWidth} size={size} color={Color.white} />
-    </View>
+    </TouchableOpacity>
   );
 };
 
 export default WrapIcon;
 
 const styles = StyleSheet.create({
-    container:{
-        backgroundColor: 'rgba(248, 250, 252, 0.5)',
-        padding: 5,
-        borderRadius: 10,
-        alignItems: 'center',
-        justifyContent: 'center'
-    }
+  container: {
+    backgroundColor: "rgba(248, 250, 252, 0.5)",
+    padding: 5,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });

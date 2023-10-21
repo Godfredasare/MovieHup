@@ -6,7 +6,7 @@ import {
   Text,
   View,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Color from "../config/Color";
 import {
   widthPercentageToDP as wp,
@@ -25,6 +25,8 @@ import {
 } from "react-native-heroicons/outline";
 import Casts from "../components/Casts";
 import cast from "../data/cast";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { fetchMoviesDetails } from "../service/fetchApi";
 
 var { width, height } = Dimensions.get("window");
 
@@ -43,7 +45,53 @@ const genres = [
   },
 ];
 
+interface Genres {
+  id: number;
+  name: string;
+}
+
+export interface MovieDetailsInterface {
+  id: number;
+  overview: string;
+  poster_path: string;
+  original_title: string;
+  release_date: string;
+  genres: Genres[];
+  runtime: number;
+}
+
+interface Casts {
+  name: string,
+  profile_path: string,
+  character: string
+} 
+
+export interface MovieCastsInterface {
+  id: number,
+  cast: Casts[]
+}
+
 const MovieDetails = () => {
+  const navigation = useNavigation();
+  const {params } = useRoute();
+  const [movieDetails, setMovieDetails] = useState<MovieDetailsInterface | null>(null);
+
+
+
+  const getMovieDetails =async () => {
+     const res = await fetchMoviesDetails(params.id)
+     try {
+      
+     } catch (error) {
+        console.log('Error fetching casts', error)
+     }
+     setMovieDetails(res.data) 
+  }
+
+ useEffect(() => {
+  getMovieDetails()
+ }, [params.id])
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.wrapImage}>
@@ -52,7 +100,7 @@ const MovieDetails = () => {
             resizeMode="cover"
             style={styles.image}
             source={{
-              uri: "https://image.tmdb.org/t/p/w500//ym1dxyOk4jFcSl4Q2zmRrA5BEEN.jpg",
+              uri: `https://image.tmdb.org/t/p/w500/${movieDetails?.poster_path}`,
             }}
           />
         </View>
@@ -64,6 +112,7 @@ const MovieDetails = () => {
             icon="ChevronLeftIcon"
             strokeWidth={2.5}
             size={hp(3.4)}
+            onPress={() => navigation.goBack()}
           />
           <WrapIcon
             iconType="outline"
@@ -82,14 +131,14 @@ const MovieDetails = () => {
             position: "absolute",
             bottom: 0,
           }}
-          start={{ x: 0.5, y: 0.9 }} 
-          end={{ x: 0.5, y: 0 }} 
+          start={{ x: 0.5, y: 0.9 }}
+          end={{ x: 0.5, y: 0 }}
         />
 
         {/* body */}
       </View>
       <View style={styles.body}>
-        <Text style={styles.title}>Spider-Man: Across the Spider-Verse</Text>
+        <Text style={styles.title}>{movieDetails?.original_title}</Text>
 
         <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
           <Text style={styles.star}>
@@ -97,7 +146,7 @@ const MovieDetails = () => {
           </Text>
 
           <Text style={styles.star}>
-            {"|" + "  " + "95mins" + "  " + "|" + "  " + "2023-07-26"}
+            {"|" + "  " + movieDetails?.runtime+ 'mins' + "  " + "|" + "  " + movieDetails?.release_date}
           </Text>
         </View>
 
@@ -107,7 +156,7 @@ const MovieDetails = () => {
           contentContainerStyle={{ gap: 10, paddingVertical: 10 }}
           showsHorizontalScrollIndicator={false}
         >
-          {genres.map((genres) => (
+          {movieDetails?.genres.map((genres) => (
             <View key={genres.id}>
               <Genres genres={genres.name} />
             </View>
@@ -121,7 +170,6 @@ const MovieDetails = () => {
             marginVertical: 17,
           }}
         >
-          
           <Button />
           <View style={styles.play}>
             <ArrowDownTrayIcon strokeWidth={2} color={Color.textSlate300} />
@@ -131,12 +179,9 @@ const MovieDetails = () => {
           </View>
         </View>
 
-           {/* description */}
+        {/* description */}
         <Text style={styles.description}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora
-          obcaecati aliquid in, natus exercitationem aliquam nam deleniti atque
-          iste dolores libero aut et ex quae quidem. Harum animi aspernatur
-          mollitia!
+         {movieDetails?.overview}
         </Text>
 
         {/* top casts */}
@@ -157,7 +202,16 @@ const MovieDetails = () => {
         </View>
 
         {/* similar movies */}
-
+        <View>
+          <Text style={styles.castText}>Top Cast</Text>
+          {/* <MoviesList
+                // moviesData={rated}
+                title="Top Rated Movies"
+                // handleNavigation={(id: number) =>
+                //   navigation.navigate("Details", { id })
+                // }
+              /> */}
+        </View>
       </View>
     </ScrollView>
   );
@@ -220,9 +274,9 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     paddingBottom: 15,
   },
-  description:{
+  description: {
     color: Color.grey,
     fontSize: hp(1.9),
     fontWeight: "500",
-  }
+  },
 });
