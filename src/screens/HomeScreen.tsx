@@ -49,7 +49,7 @@ const HomeScreen = () => {
       const res = await fetchUpcomingMovies();
       setUpcoming(res.data.results);
     } catch (error) {
-      console.log("error", error);
+      console.log("Error fetching Upcomming", error);
     }
   };
   const getPopularMovies = async () => {
@@ -57,7 +57,7 @@ const HomeScreen = () => {
       const res = await fetchPopularMovies();
       setPopular(res.data.results);
     } catch (error) {
-      console.log("error", error);
+      console.log("Error fetching popular", error);
     }
   };
   const getNowPlayingMovies = async () => {
@@ -65,7 +65,7 @@ const HomeScreen = () => {
       const res = await fetchNowPlayingMovies();
       setNowPlaying(res.data.results);
     } catch (error) {
-      console.log("error", error);
+      console.log("Error Now Playing", error);
     }
   };
   const getTopRatedMovies = async () => {
@@ -73,7 +73,7 @@ const HomeScreen = () => {
       const res = await fetchTopRatedMovies();
       setRated(res.data.results);
     } catch (error) {
-      console.log("error", error);
+      console.log("Error Rate Movies", error);
     }
   };
 
@@ -103,7 +103,7 @@ const HomeScreen = () => {
             <TrendingMovies
               movies={trending}
               handleNavigation={(item) =>
-                navigation.navigate("Details", {id: item.id})
+                navigation.navigate("Details", { id: item.id })
               }
             />
             <View style={{ gap: 30 }}>
@@ -114,7 +114,12 @@ const HomeScreen = () => {
                   navigation.navigate("Details", { id })
                 }
               />
-              <UpcomingMovies movies={upcoming} />
+              <UpcomingMovies
+                movies={upcoming}
+                handleNavigation={(id: number) =>
+                  navigation.navigate("Details", { id })
+                }
+              />
               <MoviesList
                 moviesData={nowPlaying}
                 title="Now Playing Movies"

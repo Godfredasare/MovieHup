@@ -1,6 +1,4 @@
-import {
-  fetchMovieListInterface,
-} from "../components/MovieList";
+import { fetchMovieListInterface } from "../components/MovieList";
 import { fetchTrendInterface } from "../components/TrendingMovies";
 import { fetchUpcommingInterface } from "../components/UpcomingMovies";
 import {
@@ -51,6 +49,8 @@ export const fetchMoviesDetails = async (id: number) => {
   return res;
 };
 export const fetchMoviesCreditDetails = async (id: number) => {
-  const res = await apiClient.get<MovieCastsInterface>(`/movie/${id}/credits?language=en-US`);
+  const res = await apiClient.get<MovieCastsInterface>(
+    `/movie/${id}/credits?language=en-US`
+  );
   return res;
 };

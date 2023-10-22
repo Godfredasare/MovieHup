@@ -20,10 +20,11 @@ export interface fetchUpcommingInterface {
 }
 
 interface Props {
-  movies: Upcomming[]
+  movies: Upcomming[],
+  handleNavigation: (id: number) => void
 }
 
-const UpcomingMovies = ({movies}: Props) => {
+const UpcomingMovies = ({movies, handleNavigation}: Props) => {
   return (
     <View style={{ paddingHorizontal: 15 }}>
       <View style={styles.wrapText}>
@@ -39,6 +40,7 @@ const UpcomingMovies = ({movies}: Props) => {
                 width: hp(25),
                 height: hp(26),
               }}
+              onPress={() => handleNavigation(movie.id)}
             />
           </View>
         ))}

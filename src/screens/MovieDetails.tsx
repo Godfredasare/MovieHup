@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text,
   View,
+  
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import Color from "../config/Color";
@@ -14,36 +15,23 @@ import {
 } from "react-native-responsive-screen";
 import { LinearGradient } from "expo-linear-gradient";
 import WrapIcon from "../components/WrapIcon";
-import avarta from "../../assets/images/avatar.jpg";
 import star from "../../assets/images/star.png";
 import Genres from "../components/Genres";
 import Button from "../components/Button";
 import {
   ArrowDownTrayIcon,
-  PlayIcon,
   ShareIcon,
 } from "react-native-heroicons/outline";
 import Casts from "../components/Casts";
-import cast from "../data/cast";
-import { useNavigation, useRoute } from "@react-navigation/native";
-import { fetchMoviesDetails } from "../service/fetchApi";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import {
+  fetchMoviesCreditDetails,
+  fetchMoviesDetails,
+} from "../service/fetchApi";
+import { ScreenNavigationProp, StackNavigatorParamList } from "../navigation/appNavigation";
 
 var { width, height } = Dimensions.get("window");
 
-const genres = [
-  {
-    id: 27,
-    name: "Horror",
-  },
-  {
-    id: 53,
-    name: "Thriller",
-  },
-  {
-    id: 54,
-    name: "Adventure",
-  },
-];
 
 interface Genres {
   id: number;
@@ -61,36 +49,55 @@ export interface MovieDetailsInterface {
 }
 
 interface Casts {
-  name: string,
-  profile_path: string,
-  character: string
-} 
+  id: number
+  original_name: string;
+  profile_path: string;
+  character: string;
+}
 
 export interface MovieCastsInterface {
-  id: number,
-  cast: Casts[]
+  id: number;
+  cast: Casts[];
 }
+
+interface Params {
+  params: {id: number},
+  key: string,
+  path?: string | undefined,
+  name: string
+}
+
+
 
 const MovieDetails = () => {
   const navigation = useNavigation();
-  const {params } = useRoute();
-  const [movieDetails, setMovieDetails] = useState<MovieDetailsInterface | null>(null);
+  const {  params  } = useRoute<Params>();
+  const [movieDetails, setMovieDetails] =
+    useState<MovieDetailsInterface | null>(null);
+  const [cast, setCast] = useState<Casts[]>([]);
 
+  const getMovieDetails = async () => {
+    const res = await fetchMoviesDetails(params.id);
+    try {
+    } catch (error) {
+      console.log("Error fetching movie details", error);
+    }
+    setMovieDetails(res.data);
+  };
 
+  const getMovieCasts = async () => {
+    const res = await fetchMoviesCreditDetails(params.id);
+    try {
+      setCast(res.data.cast);
+    } catch (error) {
+      console.log("Error fetching casts", error);
+    }
+  };
 
-  const getMovieDetails =async () => {
-     const res = await fetchMoviesDetails(params.id)
-     try {
-      
-     } catch (error) {
-        console.log('Error fetching casts', error)
-     }
-     setMovieDetails(res.data) 
-  }
-
- useEffect(() => {
-  getMovieDetails()
- }, [params.id])
+  useEffect(() => {
+    getMovieDetails();
+    getMovieCasts();
+  }, [params.id]);
 
   return (
     <ScrollView style={styles.container}>
@@ -146,7 +153,14 @@ const MovieDetails = () => {
           </Text>
 
           <Text style={styles.star}>
-            {"|" + "  " + movieDetails?.runtime+ 'mins' + "  " + "|" + "  " + movieDetails?.release_date}
+            {"|" +
+              "  " +
+              movieDetails?.runtime +
+              "mins" +
+              "  " +
+              "|" +
+              "  " +
+              movieDetails?.release_date}
           </Text>
         </View>
 
@@ -180,9 +194,7 @@ const MovieDetails = () => {
         </View>
 
         {/* description */}
-        <Text style={styles.description}>
-         {movieDetails?.overview}
-        </Text>
+        <Text style={styles.description}>{movieDetails?.overview}</Text>
 
         {/* top casts */}
 
